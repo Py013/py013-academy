@@ -36,3 +36,13 @@ Todo produto no nosso banco de dados terá:
 - Preço
 - Identificador único
 
+## Como testar a API?
+
+1. Abra um terminal na pasta no projeto
+2. Digite o comando `fastapi dev criar-api/main.py` e aperte enter.
+
+Pronto! sua API estará ativa. Caso precise deastivá-la, aperte `Ctrl + C`.
+
+Sua API por padrão estará disponível na url `localhost:8000`. utilize essa url para consumi-la
+como ensinado anteriormente.
+
