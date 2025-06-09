@@ -1,6 +1,10 @@
+import uvicorn
+
+from fastapi import FastAPI, Response, status, HTTPException, Request
+from fastapi.responses import JSONResponse
+
 import handler.HandleProductUpdate as handler
 from db.database import DB
-from fastapi import FastAPI, Response, status
 from request.model.ProductModel import Product
 
 app = FastAPI()
@@ -8,7 +12,7 @@ app = FastAPI()
 # Aqui estamos delcarando uma rota da nossa API que:
 # - Tem como url '/products?category=something&send=sometghing'
 # - Necessita do método GET para usá-lo
-app.get('/products')
+@app.get('/products')
 def searchByCategory(response:Response, category:str, send:str):
     # Essa é a função que vai lidar com a chamada da rota. Nessa função, nós:
     # - Filtramos os produtos pelos query parameters passados
@@ -26,10 +30,7 @@ def searchByCategory(response:Response, category:str, send:str):
     products_filtered:list[dict] = []
     
     for product in DB.values():
-        if product['category'] == category:
-            products_filtered.append(product)
-
-        elif product['sned_type'] == send:
+        if product['category'] == category and product['send_type'] == send:
             products_filtered.append(product)
 
     if products_filtered == []:
@@ -37,13 +38,13 @@ def searchByCategory(response:Response, category:str, send:str):
         return {'message': 'any product not found'}
 
     response.status_code = status.HTTP_200_OK
-    return {'message': 'products found sucessfully'}
+    return {'message': 'products found sucessfully', 'products': products_filtered}
 
 
 
 
 
-app.get('/products/{product_id}')
+@app.get('/products/{product_id}')
 def searchById(product_id:int, response:Response):
     # Nessa rota, é possível através do id do produto
     # localizá-lo no nosso banco de dados, sendo o id pasado direto na url.
@@ -65,7 +66,7 @@ def searchById(product_id:int, response:Response):
 
 
 
-app.post('/products/')
+@app.post('/products/')
 def addProduct(product: Product, response:Response):
     # nessa rota, precisamos de outro método HTTP, o POST,
     # já que estaremos enviando algo para a API, pelo corpo
@@ -79,7 +80,7 @@ def addProduct(product: Product, response:Response):
 
 
 
-app.put('/products/{product_id}')
+@app.put('/products/{product_id}')
 def updateProduct(product_id:int, response:Response, product_req: Product):
     # Para atualizar recursos, usamos outro método, o PUT ou PATCH
     
@@ -97,5 +98,23 @@ def updateProduct(product_id:int, response:Response, product_req: Product):
 
     response.status_code = status.HTTP_202_ACCEPTED
     return {'message': 'product updated sucessfully', 'product': DB[product_id]}
-    
-    
+
+
+
+# Exception handler
+@app.exception_handler(HTTPException)
+async def http_exception_handler(request: Request, exc: HTTPException):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={
+            "detail": exc.detail,
+            "path": request.url.path
+        }
+    )
+
+
+
+
+
+if __name__ == '__main__':
+    uvicorn.run(app, host="127.0.0.1", port=8000)

@@ -1,6 +1,7 @@
+from request.model.ProductModel import Product
 from db.database import DB
 
-def updateProduct(product_id:str, product_req:dict) -> tuple[bool, dict]:
+def updateProduct(product_id:int, product_req:Product) -> tuple[bool, dict]:
 
 
     product =DB[product_id]

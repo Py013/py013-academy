@@ -1,4 +1,4 @@
-DB: dict[dict] = {
+DB: dict[int, dict] = {
     1: {
         'description': 'Notebook Dell Inspiron 15 3000',
         'category': 'Computador',
@@ -22,14 +22,14 @@ DB: dict[dict] = {
     },
     4: {
         'description': 'Mouse profissional para designers 3D',
-        'category': 'Periféricos',
+        'category': 'Periferico',
         'quantity': 21,
         'send_type': 'Internacional',
         'price': 225.50,
     },
     5: {
         'description': 'Fone de ouvido Kuba Uni',
-        'category': 'Periféricos',
+        'category': 'Periferico',
         'quantity': 21,
         'send_type': 'Nacional',
         'price': 0.15,
