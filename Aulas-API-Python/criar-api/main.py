@@ -101,20 +101,5 @@ def updateProduct(product_id:int, response:Response, product_req: Product):
 
 
 
-# Exception handler
-@app.exception_handler(HTTPException)
-async def http_exception_handler(request: Request, exc: HTTPException):
-    return JSONResponse(
-        status_code=exc.status_code,
-        content={
-            "detail": exc.detail,
-            "path": request.url.path
-        }
-    )
-
-
-
-
-
 if __name__ == '__main__':
     uvicorn.run(app, host="127.0.0.1", port=8000)
