@@ -39,7 +39,11 @@ Todo produto no nosso banco de dados terá:
 ## Como testar a API?
 
 1. Abra um terminal na pasta no projeto
-2. Digite o comando `fastapi dev criar-api/main.py` e aperte enter.
+2. Navegue até a pasta das aulas de API com python com o comando `cd Aulas-API-Python`
+3. Crie um ambiente virtual python rodanod o comamndo `python3 -m venv .venv`
+4. Caso esteja usando windows, rode o próximo comando para ativar o ambiente `.\venv\Scripts\activate`
+5. Em seguida, instale as dependências necessárias pelo comando `pip install -r requirements.txt`
+6. Digite o comando `fastapi dev criar-api/main.py` e aperte enter.
 
 Pronto! sua API estará ativa. Caso precise deastivá-la, aperte `Ctrl + C`.
 
