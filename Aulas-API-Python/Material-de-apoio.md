@@ -33,7 +33,7 @@ Ao analaisar as palavras chaves destacadas, podemos notar semelhanças entre o e
 
 
 
-# Assoicação
+# Associação
 
 Nesse exemplo dado: 
 - A "parte A" seria você,  enquanto a "parte B", a API em si, trata-se do próprio drive-thru.
