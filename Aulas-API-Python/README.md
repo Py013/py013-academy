@@ -36,6 +36,30 @@ Todo produto no nosso banco de dados terá:
 - Preço
 - Identificador único
 
+
+
+## Utilização
+
+Dentro da nossa API de produtos, nós podemos:
+
+- Acessar vários produtos por meio de filtros
+- Acessar os dados de um único produto através do seu identificador
+- Adicionar produtos
+- Remover produtos
+- Editar produtos existentes
+
+
+
+## Focando no essencial
+
+Para quem ainda está no começo do seu aprendizado com python,
+há também disponível um [arquivo-esqueleto](./criar-api/main_template.py)
+que você pode acompanhar a explicação e tentar fazer da maneira que achar melhor.
+Lembrando que será explicado toda a parte do fastapi de sua utilização para que
+possa funcionar normalmente.
+
+
+
 ## Como testar a API?
 
 1. Abra um terminal na pasta no projeto
@@ -45,7 +69,7 @@ Todo produto no nosso banco de dados terá:
 5. Em seguida, instale as dependências necessárias pelo comando `pip install -r requirements.txt`
 6. Digite o comando `fastapi dev criar-api/main.py` e aperte enter.
 
-Pronto! sua API estará ativa. Caso precise deastivá-la, aperte `Ctrl + C`.
+Pronto! sua API estará ativa. Caso precise deastivá-la, aperte `Ctrl + c`.
 
 Sua API por padrão estará disponível na url `localhost:8000`. utilize essa url para consumi-la
 como ensinado anteriormente.
