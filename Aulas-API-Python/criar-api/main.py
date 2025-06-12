@@ -1,11 +1,10 @@
 import uvicorn
 
-from fastapi import FastAPI, Response, status, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI, Response, status
 
 import handler.HandleProductUpdate as handler
 from db.database import DB
-from request.model.ProductModel import Product
+from model.request.ProductModel import ProductPost, ProductPut
 
 app = FastAPI()
 
@@ -13,7 +12,7 @@ app = FastAPI()
 # - Tem como url '/products?category=something&send=sometghing'
 # - Necessita do método GET para usá-lo
 @app.get('/products')
-def searchByCategory(response:Response, category:str, send:str):
+def searchByCategory(response:Response, category:str = None, send:str = None):
     # Essa é a função que vai lidar com a chamada da rota. Nessa função, nós:
     # - Filtramos os produtos pelos query parameters passados
    
@@ -29,8 +28,15 @@ def searchByCategory(response:Response, category:str, send:str):
 
     products_filtered:list[dict] = []
     
+    if category == None and send == None:
+        products_filtered = list(DB.values())
+        response.status_code = status.HTTP_200_OK
+        return {'message': 'products found sucessfully', 'products': products_filtered}
+    
     for product in DB.values():
-        if product['category'] == category and product['send_type'] == send:
+        if product['category'] == category:
+            products_filtered.append(product)
+        if product['send_type'] == send:
             products_filtered.append(product)
 
     if products_filtered == []:
@@ -45,7 +51,7 @@ def searchByCategory(response:Response, category:str, send:str):
 
 
 @app.get('/products/{product_id}')
-def searchById(product_id:int, response:Response):
+def searchById(product_id:str, response:Response):
     # Nessa rota, é possível através do id do produto
     # localizá-lo no nosso banco de dados, sendo o id pasado direto na url.
 
@@ -60,19 +66,21 @@ def searchById(product_id:int, response:Response):
         return {'message': 'product not found'}
     
     response.status_code = status.HTTP_200_OK
-    return {'message': 'any product not found', 'product': product}
+    return {'message': 'product found sucessfully', 'product': product}
 
 
 
 
 
 @app.post('/products/')
-def addProduct(product: Product, response:Response):
+def addProduct(product: ProductPost, response:Response):
     # nessa rota, precisamos de outro método HTTP, o POST,
     # já que estaremos enviando algo para a API, pelo corpo
     # da requisição (JSON)
 
-    id = len(DB) + 1
+    product_id:str = str(len(DB) + 1)
+    product = product.model_copy(update={'id': product_id})
+
     DB.update({id: product.model_dump()})
     return {'mesasge': 'product added sucessfully', 'product': product}
 
@@ -81,23 +89,32 @@ def addProduct(product: Product, response:Response):
 
 
 @app.put('/products/{product_id}')
-def updateProduct(product_id:int, response:Response, product_req: Product):
+def updateProduct(product_id:str, response:Response, product_req: ProductPut):
     # Para atualizar recursos, usamos outro método, o PUT ou PATCH
-    
     try:
-        product = DB[product_id]
+        _ = DB[product_id]
     except KeyError:
         response.status_code = status.HTTP_404_NOT_FOUND
         return {'message': 'product not found'}
 
-    (sucess, wrong_item) = handler.updateProduct(product_id, product_req)
-    if not sucess:
-        response.status_code = status.HTTP_400_BAD_REQUEST
-        return {'message': 'error', 'description': f"Item {wrong_item['item']} does not correspond to any product attribute"}
-    
-
+    handler.updateProduct(product_id, product_req)
     response.status_code = status.HTTP_202_ACCEPTED
-    return {'message': 'product updated sucessfully', 'product': product}
+    return {'message': 'product updated sucessfully', 'product': DB[product_id]}
+
+
+
+
+@app.delete('/products/{product_id}')
+def deleteProduct(product_id:str, response:Response):
+    try:
+        _ = DB[product_id]
+    except KeyError:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {'message': 'product not found'}
+
+    DB.pop(product_id)
+
+    return {'message': 'product deleted sucessfully'}
 
 
 
