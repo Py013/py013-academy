@@ -82,7 +82,7 @@ Sem alface, sendo passado na sempre na própria rota. Um método simples e fáci
 
 
 
-# Status code
+## Status code
 
 Servindo como um aviso prévio, o status code sinaliza qual foi o resultado do processamento da requisição.
 Como no nosso caso recebemos o pedido normalmente, por exemplo, o satus code retornado seria 200, que significa "OK".
