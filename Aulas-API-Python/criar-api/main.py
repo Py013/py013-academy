@@ -97,7 +97,7 @@ def updateProduct(product_id:int, response:Response, product_req: Product):
     
 
     response.status_code = status.HTTP_202_ACCEPTED
-    return {'message': 'product updated sucessfully', 'product': DB[product_id]}
+    return {'message': 'product updated sucessfully', 'product': product}
 
 
 
