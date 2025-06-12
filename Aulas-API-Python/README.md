@@ -2,14 +2,14 @@
 
 ## Nesse mini curso, você irá aprender o básico de uma API:
 
-- Definição
+- Definição (com analogia)
 - Para que utilizamos?
 - Analogias da vida real
 - Termos técnicos
     - Métodos de uma request
-    - JSON
-    - Status codes
+    - JSON (request e response body)
     - Query parameters
+    - Status codes
     
 - Como consumir uma API com Python?
 - APIs públicas para testar
