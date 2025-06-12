@@ -1,21 +1,20 @@
-from request.model.ProductModel import Product
+from model.request.ProductModel import ProductPut
 from db.database import DB
 
-def updateProduct(product_id:int, product_req:Product) -> tuple[bool, dict]:
+def updateProduct(product_id:int, product_req:ProductPut) -> None:
 
 
-    product =DB[product_id]
+    product:dict =DB[product_id]
 
     altered_product = product
-    for key, value in product_req.items():
-        try:
-            product_attribute = product[key]
-        except KeyError:
-            return (False, {'item': key})
+    for key, value in product_req.model_dump().items():
+        product_attribute = product[key]
         
+        if value == None:
+            continue
         if value != product_attribute:
             altered_product.update({key: value})
     
     DB[product_id] = altered_product
 
-    return (True, {})
+    return
