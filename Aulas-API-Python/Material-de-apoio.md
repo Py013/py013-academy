@@ -48,7 +48,7 @@ Nesse exemplo dado:
 O request é uma mensagem enviada por um cliente para um servidor API para solicitar uma ação, como obter dados, enviar, reformular dados, etc.
 
 Dentro de um **request** há alguns componentes comuns, como:
-- *Método HTTP* - **Definindo o tipo de ação a ser realizada (GET, POST, PUT, PATCH, DELETE)**
+- *Método HTTP*
 - *URL de Endpoint*
 - *Response*
 - *Headers (Cabeçalho)*
