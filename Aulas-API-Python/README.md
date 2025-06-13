@@ -6,10 +6,15 @@
 - Para que utilizamos?
 - Analogias da vida real
 - Termos técnicos
-    - Métodos de uma request
-    - JSON (request e response body)
-    - Query parameters
-    - Status codes
+    - Request
+    - Métodos HTTP (Verbs) 
+    - Endpoint
+    - Response
+    - Status Code
+    - Headers
+    - Body
+    - JSON e XML
+    - Query Parameters
     
 - Como consumir uma API com Python?
 - APIs públicas para testar

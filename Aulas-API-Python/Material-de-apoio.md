@@ -44,48 +44,162 @@ Nesse exemplo dado:
 
 # Termos técnicos
 
-## Rota
+## Request
+O request é uma mensagem enviada por um cliente para um servidor API para solicitar uma ação, como obter dados, enviar, reformular dados, etc.
 
-Assim como você precisou sabe o endereço do drive-thru, também é preciso saber o da API.
-É por lá que também é possível passae infrormações extras, que serão faladas mais á frente.
+Dentro de um **request** há alguns componentes comuns, como:
+- *Método HTTP* - **Definindo o tipo de ação a ser realizada (GET, POST, PUT, PATCH, DELETE)**
+- *URL de Endpoint*
+- *Response*
+- *Headers (Cabeçalho)*
+- *Body (Corpo)*
 
-
-
-## Métodos
+## Métodos HTTP ou também nomeados de 'Verbs'
 
 Um dos meios de da API saber qual ação você deseja executar (fazer um pedido, ou então alterar um já existente)
 é através dos métodos.
 Os principais métodos utilizados são:
 
-- **GET**, para procurar por um recurso
-- **POST**, para salvar ou pedir por um recurso que necessita de alguma informação a ser enviada
-- **PUT**, para atualizar um recurso existente
-- **DELETE**, para exculir um recurso
+- **GET** - para procurar por um recurso.
+- **POST** - para salvar ou pedir por um recurso que necessita de alguma informação a ser enviada.
+- **PATCH** - para atualizar parcialmente um recurso existente.
+- **PUT** - para atualizar um recurso existente.
+- **DELETE** - para exculir um recurso.
 
-> AO consumir uma API, leia a documentação da mesma, para que possa saber quais métodos utilizar.
+> Ao consumir uma API, leia a documentação da mesma, para que possa saber quais métodos utilizar.
+
+## Endpoint
+Um endpoint é uma URL, Uniform Resource Locator (**Localizador Uniforme de Recursos, em tradução livre**) onde uma API pode ser acessada por um cliente. Cada endpoint corresponde a uma função ou recurso específico da API.
+
+***Exemplo:***
+```
+https://api.exemplo.com/usuarios - Endpoint para obter uma lista de usuários
+
+https://api.exemplo.com/usuarios/123 - Endpoint para obter informações do usuário com ID 123
+```
+
+## Response
+O response (resposta) é uma mensagem de resposta enviada pelo servidor API de volta ao cliente após processar uma requisição (request).
+
+Dentro de um **response** há alguns componentes comuns, como:
+- *Status Code (Código de Status HTTP)*
+- *Headers (Cabeçalho)* - **Possui informações adicionais sobre a resposta.**
+- *Body (Corpo)* - **Os dados retornados pelo servidor (geralmente em formato JSON ou XML).**
 
 
+## Status Code
+Status Code é um **código de status HTTP** que retorna quando é feito uma requisição (request) para verificar se a ação foi feita com sucesso!
 
-## JSON (request e response body)
-O JSON (JavaScript Object Notation) é o meio amplamente utiilzado para trocar informações.
+Lista das classes comuns de códigos:
+- `1xx` **(Informacional)**: Requisição recebida, continuando processo.
+- `2xx` **(Sucesso)**: A requisição foi recebida, entendida e aceita com sucesso.  
+    - `200`: **OK**. Requisição bem-sucedida.
+    - `204`: **No Content**. Requisição bem-sucedida, porém não há conteúdo para retornar.
 
-Ela seria a tal língua portuguesa utilizada no exemplo acima.
+- `3xx` **(Redirecionamento)**: Ações adicionais precisam ser tomadas para completar a requisição.
+- `4xx` **(Erro do Cliente)**: A requisição possui sintaxe incorreta ou não pode ser cumprida.
+    - `400`: **Bad Request**: O servidor não entendeu a requisição.
+    - `401`: **Unauthorized**: Autenticação necessária e falhou ou não foi fornecida.
+    - `404`: **Not Found**: O recurso solicitado não foi encontrado.
+    - `429`: **Too Many Requests**: O usuário enviou muitas requisições em determinado período.
+- `5xx` **(Erro do Servidor)**: O servidor falhou em cumprir uma requisição aparentemente válida.
+    - `500`: **Internal Server Error**: Um erro genérico ocorreu no servidor.
 
-Ela serve tanto para fazer o request, o pedido, ("hambúrguer e refrigerante de limão"),
-quanto para response, a resposta ("hambúrguer e refri, total R$37.50").
 
+## Headers
+São os famosos chamados **'Metadados'** enviados tanto na requisição quanto na resposta HTTP. Eles fornecem informações importantes sobre a mensagem.
 
+Atributos dentro do **Header** que você encontrará:
+- `Content-Type`: Indica o formato dos dados no corpo da mensagem. 
+    - Exemplo: `application/json`, `application/xml`.
+
+- `Authorization`: Contém as credenciais de autenticação, por exemplo um **token API**.
+- `Accept`: Indica ao servidor qual o **formato** dos dados o cliente espera na resposta.
+- `User-Agent`: Identifica o **cliente** que está fazendo a **requisição**.
+
+## Body
+O body (corpo) simplesmente vai ser o conteúdo retornado pela requisição (request) feita, ou seja, praticamente é o conteúdo em formato **JSON** ou **XML**!
+
+***Exemplo:***
+
+**JSON**
+```
+{
+  "nome": "João Silva",
+  "idade": 30,
+  "email": "joao.silva@example.com",
+  "ativo": true,
+  "interesses": [
+    "programação",
+    "leitura",
+    "caminhada"
+  ],
+  "endereco": {
+    "rua": "Rua das Flores, 123",
+    "cidade": "São Paulo",
+    "cep": "01000-000"
+  },
+  "pedidos": [
+    {
+      "id": "A123",
+      "produto": "Notebook",
+      "valor": 5500.00
+    },
+    {
+      "id": "B456",
+      "produto": "Mouse",
+      "valor": 150.00
+    }
+  ]
+}
+```
+
+**XML**
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<pessoa>
+  <nome>Maria Souza</nome>
+  <idade>25</idade>
+  <email>maria.souza@example.com</email>
+  <ativo>true</ativo>
+  <interesses>
+    <interesse>fotografia</interesse>
+    <interesse>culinária</interesse>
+    <interesse>viagem</interesse>
+  </interesses>
+  <endereco>
+    <rua>Avenida Principal, 456</rua>
+    <cidade>Rio de Janeiro</cidade>
+    <cep>20000-000</cep>
+  </endereco>
+  <pedidos>
+    <pedido id="C789">
+      <produto>Smartphone</produto>
+      <valor>3200.00</valor>
+    </pedido>
+    <pedido id="D012">
+      <produto>Fone de ouvido</produto>
+      <valor>300.00</valor>
+    </pedido>
+  </pedidos>
+</pessoa>
+```
+
+**OBS: Json é o formato mais utilizado atualmente!**
 
 ##  Query parameters
+Query parameters **(Parâmetros de Consulta)** são parêmetros adicionados ao final da URL do endpoint. São usados para filtrar, ordenar ou paginar os resultados da API. Geralmente são utilizados após um `?` e separados por `&`.
+
+***Exemplo:***
+
+```
+https://api.exemplo.com/posts?userId=1&_sort=title&_order=asc
+
+'userId=1' - Filtra posts pelo usuário com ID 1.
+'_sort_title' - Ordena os resultados pelo título.
+'_order=asc' - Define a ordem como ascendente. 
+```
+
 No caso da analogia, um query parameter poderia ser o pedido especial:
+
 Sem alface, sendo passado na sempre na própria rota. Um método simples e fácil de adicionar filtros no seu pedido.
-
-
-
-## Status code
-
-Servindo como um aviso prévio, o status code sinaliza qual foi o resultado do processamento da requisição.
-Como no nosso caso recebemos o pedido normalmente, por exemplo, o satus code retornado seria 200, que significa "OK".
-
-Exsitem diversos status codes, sendo alguns dos mais conhecidos o 404: not found, 201: created e até o 500: internal server errror.
-Abordaremos algnus deles no nosso projeto de API.
