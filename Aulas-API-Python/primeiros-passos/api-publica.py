@@ -2,7 +2,7 @@
 import requests
 import json
 
-perfil_github = "luanfelixcoding" # Coloque o nome do seu perfil do github para acessar suas informações
+perfil_github = "" # Coloque o nome do seu perfil do github para acessar suas informações
 
 URL = f"https://api.github.com/users/{perfil_github}" #? ENDPOINT com PATH PARAMETER como o perfil_github
 response = requests.get(URL) #? Response através da API URL
