@@ -7,7 +7,7 @@
 - Analogias da vida real
 - Termos técnicos
     - Request
-    - Métodos HTTP (Verbs) 
+    - Métodos HTTP (Verbs)
     - Endpoint
     - Response
     - Status Code
@@ -20,6 +20,11 @@
 - APIs públicas para testar
 - Construindo uma API simples (também com python)
 
+
+## Prerequisitos
+
+- Editor de código, python e git instalado
+- Noções básicas de python
 
 
 
@@ -65,13 +70,16 @@ possa funcionar normalmente.
 
 
 
-## Como testar a API?
+## Como testar a API pela primeira vez?
 
-1. Abra um terminal na pasta no projeto
-2. Navegue até a pasta das aulas de API com python com o comando `cd Aulas-API-Python`
-3. Crie um ambiente virtual python rodanod o comamndo `python3 -m venv .venv`
+1. Abra um terminal em uma pasta aonde deseja clonar o repositório
+2. digite o comando `git clone https://github.com/Py013/py013-academy.git`para clonar o repositório remoto para sua pasta escolhida
+2. NO mesmo terminal, navegue até a pasta das aulas de API com python com o comando `cd py013-academy/Aulas-API-Python`
+3. Crie um ambiente virtual python rodando o comamndo `python3 -m venv .venv`
 4. Caso esteja usando windows, rode o próximo comando para ativar o ambiente `.\venv\Scripts\activate`
 5. Em seguida, instale as dependências necessárias pelo comando `pip install -r requirements.txt`
+>Daqui em diante, este comando precisa ser repetido que queira deixar o servidor da API ativo.
+> Os passos anteriores são apenas para uma primeira vez clonando o repositório.
 6. Digite o comando `fastapi dev criar-api/main.py` e aperte enter.
 
 Pronto! sua API estará ativa. Caso precise deastivá-la, aperte `Ctrl + c`.

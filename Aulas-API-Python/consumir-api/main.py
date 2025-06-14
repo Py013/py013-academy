@@ -18,7 +18,7 @@ def main():
     }
 
     # Não esqueça que salvar o retorno em uma váriavel. Ele retornará um objeto que podemos manipular
-    response = requests.get(url + '/70', json=request_body)
+    response = requests.get(url, json=request_body)
 
     # Caso precise ver o status code retornado:
     if response.status_code == 500:
